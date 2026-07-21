@@ -78,6 +78,14 @@ flowchart TD
     Models --> TeamPSG
     Models --> StandaloneReports
 
+    style Sources fill:#e1f5ff
+    style Ingestion fill:#fff3e0
+    style Storage fill:#f3e5f5
+    style Models fill:#e8f5e9
+    style Consumption fill:#fce4ec
+
+```
+
 Legend
 Solid Lines: Primary data flow paths
 Dotted Lines: Alternative or conditional paths
@@ -93,8 +101,3 @@ Next Steps for Architecture Review
  Document cross-model data dependencies
  Identify consolidation opportunities among semantic models
  Plan "future state" architecture improvements
-    style Sources fill:#e1f5ff
-    style Ingestion fill:#fff3e0
-    style Storage fill:#f3e5f5
-    style Models fill:#e8f5e9
-    style Consumption fill:#fce4ec
