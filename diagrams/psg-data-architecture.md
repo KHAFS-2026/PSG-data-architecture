@@ -1,4 +1,4 @@
-# PSG Data Architecture Flowchart
+# PSG Data Architecture Flowchart - Enhanced Lineage
 
 ```mermaid
 flowchart TD
@@ -44,60 +44,72 @@ flowchart TD
         StandaloneReports["Standalone Reports<br/>(e.g., Churn Dashboard)"]
     end
 
-    %% Source to Ingestion
+    %% SOURCE TO INGESTION - SPECIFIC CONNECTIONS
     AS400 --> Pipelines
     SAP --> Pipelines
     Mercatus --> Pipelines
     ArmyCoE --> Pipelines
-    GoFormz --> Pipelines
-    EHSForms --> Pipelines
+    GoFormz --> Dataflows
+    EHSForms --> Dataflows
     OtherSources --> Pipelines
-    
-    Sources -.->|Alternative Path| Dataflows
-    Sources -.->|Where Applicable| DirectConnect
 
-    %% Ingestion to Storage
+    %% INGESTION TO STORAGE - SPECIFIC CONNECTIONS
     Pipelines --> Lakehouse
     Pipelines --> Warehouse
-    Dataflows --> Lakehouse
     Dataflows --> ImportedModel
-    DirectConnect -.->|Live Connection| Models
+    DirectConnect --> Models
 
-    %% Storage to Models
-    Lakehouse --> Models
-    Warehouse --> Models
-    ImportedModel --> Models
+    %% STORAGE TO MODELS - SPECIFIC CONNECTIONS
+    Lakehouse --> SalesModel
+    Lakehouse --> InventoryModel
+    Lakehouse --> AquacultureModel
+    Warehouse --> QCModel
+    Warehouse --> WFMModel
+    ImportedModel --> HRModel
 
-    %% Models to Consumption
-    Models --> PSGReports
-    Models --> PSGShellfish
-    Models --> PSGVCQ
-    Models --> PSGAquaculture
-    Models --> PSGSales
-    Models --> SteelheadApp
-    Models --> TeamPSG
-    Models --> StandaloneReports
+    %% MODELS TO CONSUMPTION - SPECIFIC CONNECTIONS
+    SalesModel --> PSGSales
+    SalesModel --> StandaloneReports
+    
+    InventoryModel --> PSGReports
+    
+    AquacultureModel --> PSGAquaculture
+    AquacultureModel --> PSGReports
+    AquacultureModel --> SteelheadApp
+    
+    QCModel --> PSGVCQ
+    QCModel --> PSGReports
+    
+    WFMModel --> PSGShellfish
+    WFMModel --> PSGReports
+    
+    HRModel --> TeamPSG
 
     style Sources fill:#e1f5ff
     style Ingestion fill:#fff3e0
     style Storage fill:#f3e5f5
     style Models fill:#e8f5e9
     style Consumption fill:#fce4ec
-
 ```
 
-Legend
-Solid Lines: Primary data flow paths
-Dotted Lines: Alternative or conditional paths
-Color Coding:
-🔵 Blue: Source Systems
-🟠 Orange: Ingestion & Integration
-🟣 Purple: Storage & Transform
-🟢 Green: Semantic Models
-🔴 Pink: Consumption & Reporting
-Next Steps for Architecture Review
- Identify data quality checkpoints needed between layers
- Map freshness/SLA requirements per app
- Document cross-model data dependencies
- Identify consolidation opportunities among semantic models
- Plan "future state" architecture improvements
+## Legend
+- **Solid Lines**: Direct data flow/lineage from source to consumption
+- **Color Coding**:
+  - 🔵 Blue: Source Systems
+  - 🟠 Orange: Ingestion & Integration
+  - 🟣 Purple: Storage & Transform
+  - 🟢 Green: Semantic Models
+  - 🔴 Pink: Consumption & Reporting
+
+## Data Lineage Notes
+- **Direct Query/Live Connections**: Bypass storage layers, connect directly to models
+- **Lakehouse**: Serves Sales, Inventory, and Aquaculture models
+- **Warehouse (SQL)**: Serves Quality/Compliance and Workforce Management models
+- **Imported Tables**: Serves HR & Payroll models
+
+## Next Steps for Architecture Review
+- [ ] Identify data quality checkpoints needed between layers
+- [ ] Map freshness/SLA requirements per app
+- [ ] Document cross-model data dependencies
+- [ ] Identify consolidation opportunities among semantic models
+- [ ] Plan "future state" architecture improvements
