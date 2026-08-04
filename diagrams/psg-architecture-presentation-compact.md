@@ -4,47 +4,60 @@
 ---
 
 ```mermaid
-flowchart LR
+flowchart TB
     subgraph Sources["📊 DATA SOURCES"]
+        direction LR
         SQL["7 SQL Databases<br/>Daily Batch"]
         EXCEL["18 Excel Files<br/>Multiple Schedules"]
         AIRTABLE["Airtable<br/>Environmental Data"]
     end
 
     subgraph Ingestion["🔄 INGESTION PIPELINES<br/>(Fabric Data Factory)"]
+        direction TB
+        INGEST_PAD[" "]
+        INGEST_ROW[" "]
         PipelineSQL["SQL Pipeline"]
-        PipelineEXCEL["Excel Pipelines<br/>(Hourly/Daily/Weekly)"]
+        PipelineEXCEL["Excel Pipelines<br/>(Hourly / Daily / Weekly)"]
         PipelineAIR["Airtable Pipeline"]
+        INGEST_PAD --> INGEST_ROW
+        INGEST_ROW --- PipelineSQL
+        INGEST_ROW --- PipelineEXCEL
+        INGEST_ROW --- PipelineAIR
     end
 
     subgraph Lakehouse["💾 UNIFIED LAKEHOUSE"]
-        Bronze["🔵 BRONZE<br/>Raw Data"]
-        Silver["🟢 SILVER<br/>Business Rules"]
-        Gold["🟡 GOLD<br/>Optimized"]
+        direction LR
+        Bronze["🔵 Bronze<br/>Raw Data"]
+        Silver["🟢 Silver<br/>Business Rules"]
+        Gold["🟡 Gold<br/>Optimized"]
     end
 
     subgraph MDM["🎯 MASTER DATA LAYER<br/>(14 Shared Dimensions)"]
-        DIMS["DimCustomer | DimProduct<br/>DimLocation | DimDate | DimEmployee<br/>+ 9 Excel-based Dimensions"]
+        direction TB
+        MDM_PAD[" "]
+        DIMS["DimCustomer • DimProduct<br/>DimLocation • DimDate • DimEmployee<br/>+ 9 Excel-based Dimensions"]
+        MDM_PAD --> DIMS
     end
 
-    subgraph Models["📊 SEMANTIC MODELS (6 - Down from 21)"]
-        M1["1️⃣ Sales & Revenue<br/>(5 models→1)"]
-        M2["2️⃣ Operations<br/>(4 models→1)"]
-        M3["3️⃣ Finance<br/>(2 models→1)"]
-        M4["4️⃣ Quality<br/>(4 models→1)"]
-        M5["5️⃣ HR/Workforce<br/>(3 models→1)"]
-        M6["6️⃣ Training<br/>(1 model→1)"]
+    subgraph Models["📊 SEMANTIC MODELS<br/>(6 total, down from 21)"]
+        direction TB
+        M1["1️⃣ Sales & Revenue<br/>(5 → 1)"]
+        M2["2️⃣ Operations<br/>(4 → 1)"]
+        M3["3️⃣ Finance<br/>(2 → 1)"]
+        M4["4️⃣ Quality<br/>(4 → 1)"]
+        M5["5️⃣ HR / Workforce<br/>(3 → 1)"]
+        M6["6️⃣ Training<br/>(1 → 1)"]
     end
 
-    subgraph Apps["📈 POWER BI APPS (17 Total)<br/>with RLS Filtering"]
-        APPS["PSG Sales | PSG Reports | Kroger QA<br/>PSG Aquaculture | VCQ | HR KPIs<br/>+ 11 More Apps"]
+    subgraph Apps["📈 POWER BI APPS<br/>(17 total with RLS)"]
+        APPS["PSG Sales • PSG Reports • Kroger QA<br/>PSG Aquaculture • VCQ • HR KPIs<br/>+ 11 more apps"]
     end
 
-    subgraph GOV["🛡️ GOVERNANCE<br/>(Purview | Monitoring | RLS)"]
-        gov["Full Lineage & Metadata"]
+    subgraph GOV["🛡️ GOVERNANCE<br/>(Purview • Monitoring • RLS)"]
+        gov["Full Lineage<br/>& Metadata"]
     end
 
-    %% CONNECTIONS
+    %% MAIN FLOW
     SQL --> PipelineSQL
     EXCEL --> PipelineEXCEL
     AIRTABLE --> PipelineAIR
@@ -53,35 +66,18 @@ flowchart LR
     PipelineEXCEL --> Bronze
     PipelineAIR --> Bronze
 
-    Bronze --> Silver
-    Silver --> Gold
+    Bronze --> Silver --> Gold
     Silver --> DIMS
 
-    Gold --> M1
-    Gold --> M2
-    Gold --> M3
-    Gold --> M4
-    Gold --> M5
-    Gold --> M6
+    Gold --> Models
+    DIMS --> Models
+    Models --> APPS
 
-    DIMS --> M1
-    DIMS --> M2
-    DIMS --> M3
-    DIMS --> M4
-    DIMS --> M5
-    DIMS --> M6
-
-    M1 --> APPS
-    M2 --> APPS
-    M3 --> APPS
-    M4 --> APPS
-    M5 --> APPS
-    M6 --> APPS
-
-    APPS -.-> GOV
-    Bronze -.-> GOV
-    Silver -.-> GOV
-    Gold -.-> GOV
+    %% GOVERNANCE LINKS
+    Bronze -.-> gov
+    Silver -.-> gov
+    Gold -.-> gov
+    APPS -.-> gov
 
     %% STYLES
     style Sources fill:#e1f5ff
@@ -91,6 +87,9 @@ flowchart LR
     style Models fill:#e8f5e9
     style Apps fill:#fce4ec
     style GOV fill:#ede7f6
+    style INGEST_PAD fill:transparent,stroke:transparent,color:transparent
+    style MDM_PAD fill:transparent,stroke:transparent,color:transparent
+    style INGEST_ROW fill:transparent,stroke:transparent,color:transparent
 ```
 
 ---
