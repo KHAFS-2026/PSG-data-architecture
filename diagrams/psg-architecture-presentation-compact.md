@@ -6,22 +6,24 @@
 ```mermaid
 flowchart TB
     subgraph Sources["📊 DATA SOURCES"]
-        direction LR
-        SQL["7 SQL Databases<br/>Daily Batch"]
-        EXCEL["18 Excel Files<br/>Multiple Schedules"]
+        direction TB
+        SRC_NOTE["7 SQL DBs • 18 Excel Files • Airtable"]
+        SQL["SQL Sources<br/>Daily Batch"]
+        EXCEL["Excel Sources<br/>Multiple Schedules"]
         AIRTABLE["Airtable<br/>Environmental Data"]
+        SRC_NOTE --> SQL
+        SRC_NOTE --> EXCEL
+        SRC_NOTE --> AIRTABLE
     end
 
-    subgraph Ingestion["🔄 INGESTION PIPELINES<br/>(Fabric Data Factory)"]
+    subgraph Ingestion["🔄 INGESTION PIPELINES"]
         direction TB
-        INGEST_PAD1[" "]
-        INGEST_PAD2[" "]
-        INGEST_PAD3[" "]
+        INGEST_NOTE["Fabric Data Factory"]
         INGEST_ROW[" "]
         PipelineSQL["SQL Pipeline"]
-        PipelineEXCEL["Excel Pipelines<br/>(Hourly / Daily / Weekly)"]
+        PipelineEXCEL["Excel Pipelines"]
         PipelineAIR["Airtable Pipeline"]
-        INGEST_PAD1 --> INGEST_PAD2 --> INGEST_PAD3 --> INGEST_ROW
+        INGEST_NOTE --> INGEST_ROW
         INGEST_ROW --- PipelineSQL
         INGEST_ROW --- PipelineEXCEL
         INGEST_ROW --- PipelineAIR
@@ -34,31 +36,42 @@ flowchart TB
         Gold["🟡 Gold<br/>Optimized"]
     end
 
-    subgraph MDM["🎯 MASTER DATA LAYER<br/>(14 Shared Dimensions)"]
+    subgraph MDM["🎯 MASTER DATA LAYER"]
         direction TB
-        MDM_PAD1[" "]
-        MDM_PAD2[" "]
-        MDM_PAD3[" "]
-        DIMS["DimCustomer • DimProduct<br/>DimLocation • DimDate • DimEmployee<br/>+ 9 Excel-based Dimensions"]
-        MDM_PAD1 --> MDM_PAD2 --> MDM_PAD3 --> DIMS
+        MDM_NOTE["14 Shared Dimensions"]
+        DIMS["Customer • Product • Location<br/>Date • Employee<br/>+ 9 Excel-based Dimensions"]
+        MDM_NOTE --> DIMS
     end
 
-    subgraph Models["📊 SEMANTIC MODELS<br/>(6 total, down from 21)"]
+    subgraph Models["📊 SEMANTIC MODELS"]
         direction TB
-        M1["1️⃣ Sales & Revenue<br/>(5 → 1)"]
-        M2["2️⃣ Operations<br/>(4 → 1)"]
-        M3["3️⃣ Finance<br/>(2 → 1)"]
-        M4["4️⃣ Quality<br/>(4 → 1)"]
-        M5["5️⃣ HR / Workforce<br/>(3 → 1)"]
-        M6["6️⃣ Training<br/>(1 → 1)"]
+        MODELS_NOTE["6 total, down from 21"]
+        M1["1. Sales & Revenue"]
+        M2["2. Operations"]
+        M3["3. Finance"]
+        M4["4. Quality"]
+        M5["5. HR / Workforce"]
+        M6["6. Training"]
+        MODELS_NOTE --> M1
+        MODELS_NOTE --> M2
+        MODELS_NOTE --> M3
+        MODELS_NOTE --> M4
+        MODELS_NOTE --> M5
+        MODELS_NOTE --> M6
     end
 
-    subgraph Apps["📈 POWER BI APPS<br/>(17 total with RLS)"]
+    subgraph Apps["📈 POWER BI APPS"]
+        direction TB
+        APPS_NOTE["17 total with RLS"]
         APPS["PSG Sales • PSG Reports • Kroger QA<br/>PSG Aquaculture • VCQ • HR KPIs<br/>+ 11 more apps"]
+        APPS_NOTE --> APPS
     end
 
-    subgraph GOV["🛡️ GOVERNANCE<br/>(Purview • Monitoring • RLS)"]
-        gov["Full Lineage<br/>& Metadata"]
+    subgraph GOV["🛡️ GOVERNANCE"]
+        direction TB
+        GOV_NOTE["Purview • Monitoring • RLS"]
+        gov["Full Lineage<br/>and Metadata"]
+        GOV_NOTE --> gov
     end
 
     %% MAIN FLOW
@@ -70,14 +83,31 @@ flowchart TB
     PipelineEXCEL --> Bronze
     PipelineAIR --> Bronze
 
-    Bronze --> Silver --> Gold
+    Bronze --> Silver
+    Silver --> Gold
     Silver --> DIMS
 
-    Gold --> Models
-    DIMS --> Models
-    Models --> APPS
+    Gold --> M1
+    Gold --> M2
+    Gold --> M3
+    Gold --> M4
+    Gold --> M5
+    Gold --> M6
 
-    %% GOVERNANCE LINKS
+    DIMS --> M1
+    DIMS --> M2
+    DIMS --> M3
+    DIMS --> M4
+    DIMS --> M5
+    DIMS --> M6
+
+    M1 --> APPS
+    M2 --> APPS
+    M3 --> APPS
+    M4 --> APPS
+    M5 --> APPS
+    M6 --> APPS
+
     Bronze -.-> gov
     Silver -.-> gov
     Gold -.-> gov
@@ -91,12 +121,6 @@ flowchart TB
     style Models fill:#e8f5e9
     style Apps fill:#fce4ec
     style GOV fill:#ede7f6
-    style INGEST_PAD1 fill:transparent,stroke:transparent,color:transparent
-    style INGEST_PAD2 fill:transparent,stroke:transparent,color:transparent
-    style INGEST_PAD3 fill:transparent,stroke:transparent,color:transparent
-    style MDM_PAD1 fill:transparent,stroke:transparent,color:transparent
-    style MDM_PAD2 fill:transparent,stroke:transparent,color:transparent
-    style MDM_PAD3 fill:transparent,stroke:transparent,color:transparent
     style INGEST_ROW fill:transparent,stroke:transparent,color:transparent
 ```
 
