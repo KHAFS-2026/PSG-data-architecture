@@ -14,12 +14,14 @@ flowchart TB
 
     subgraph Ingestion["🔄 INGESTION PIPELINES<br/>(Fabric Data Factory)"]
         direction TB
-        INGEST_PAD[" "]
+        INGEST_PAD1[" "]
+        INGEST_PAD2[" "]
+        INGEST_PAD3[" "]
         INGEST_ROW[" "]
         PipelineSQL["SQL Pipeline"]
         PipelineEXCEL["Excel Pipelines<br/>(Hourly / Daily / Weekly)"]
         PipelineAIR["Airtable Pipeline"]
-        INGEST_PAD --> INGEST_ROW
+        INGEST_PAD1 --> INGEST_PAD2 --> INGEST_PAD3 --> INGEST_ROW
         INGEST_ROW --- PipelineSQL
         INGEST_ROW --- PipelineEXCEL
         INGEST_ROW --- PipelineAIR
@@ -34,9 +36,11 @@ flowchart TB
 
     subgraph MDM["🎯 MASTER DATA LAYER<br/>(14 Shared Dimensions)"]
         direction TB
-        MDM_PAD[" "]
+        MDM_PAD1[" "]
+        MDM_PAD2[" "]
+        MDM_PAD3[" "]
         DIMS["DimCustomer • DimProduct<br/>DimLocation • DimDate • DimEmployee<br/>+ 9 Excel-based Dimensions"]
-        MDM_PAD --> DIMS
+        MDM_PAD1 --> MDM_PAD2 --> MDM_PAD3 --> DIMS
     end
 
     subgraph Models["📊 SEMANTIC MODELS<br/>(6 total, down from 21)"]
@@ -87,8 +91,12 @@ flowchart TB
     style Models fill:#e8f5e9
     style Apps fill:#fce4ec
     style GOV fill:#ede7f6
-    style INGEST_PAD fill:transparent,stroke:transparent,color:transparent
-    style MDM_PAD fill:transparent,stroke:transparent,color:transparent
+    style INGEST_PAD1 fill:transparent,stroke:transparent,color:transparent
+    style INGEST_PAD2 fill:transparent,stroke:transparent,color:transparent
+    style INGEST_PAD3 fill:transparent,stroke:transparent,color:transparent
+    style MDM_PAD1 fill:transparent,stroke:transparent,color:transparent
+    style MDM_PAD2 fill:transparent,stroke:transparent,color:transparent
+    style MDM_PAD3 fill:transparent,stroke:transparent,color:transparent
     style INGEST_ROW fill:transparent,stroke:transparent,color:transparent
 ```
 
