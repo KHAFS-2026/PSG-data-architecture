@@ -1,6 +1,8 @@
 # PSG Future State Data Architecture - Presentation Ready (Compact)
 ## Consolidated 21 Models → 6 | Unified Lakehouse Platform
 
+> Download the presentation-ready SVG version here: [psg-architecture-presentation-compact.svg](./psg-architecture-presentation-compact.svg)
+
 ---
 
 ```mermaid

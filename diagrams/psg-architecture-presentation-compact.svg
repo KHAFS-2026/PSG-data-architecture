@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2200" height="1280" viewBox="0 0 2200 1280" role="img" aria-labelledby="title desc">
+  <title id="title">Unified Lakehouse Platform</title>
+  <desc id="desc">Presentation-ready architecture diagram showing Data Sources, Ingestion Pipelines, Unified Lakehouse, Master Data Layer, Semantic Models, Power BI Apps, and Governance.</desc>
+  <defs>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; fill: #1f2937; }
+      .title { font-size: 24px; font-weight: 700; }
+      .group-label { font-size: 18px; font-weight: 700; letter-spacing: 0.5px; }
+      .note { font-size: 15px; font-weight: 600; }
+      .small { font-size: 13px; }
+      .box-label { font-size: 16px; font-weight: 600; }
+      .apps { font-size: 14px; }
+      .stroke { stroke: #475569; stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .dash { stroke-dasharray: 9 8; }
+      .group { stroke: #94a3b8; stroke-width: 2.5; rx: 22; ry: 22; }
+      .node { fill: #ffffff; stroke: #64748b; stroke-width: 2; rx: 14; ry: 14; }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569" />
+    </marker>
+  </defs>
+
+  <rect x="40" y="30" width="2120" height="1210" rx="28" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="1100" y="80" text-anchor="middle" class="title">Unified Lakehouse Platform</text>
+
+  <rect class="group" x="80" y="130" width="260" height="360" fill="#e1f5ff"/>
+  <text x="210" y="165" text-anchor="middle" class="group-label">📊 DATA SOURCES</text>
+  <rect class="node" x="115" y="185" width="190" height="44"/>
+  <text x="210" y="213" text-anchor="middle" class="note">7 SQL DBs • 18 Excel Files • Airtable</text>
+  <rect class="node" x="115" y="255" width="190" height="58"/>
+  <text x="210" y="288" text-anchor="middle" class="box-label">SQL Sources</text>
+  <text x="210" y="306" text-anchor="middle" class="small">Daily Batch</text>
+  <rect class="node" x="115" y="333" width="190" height="58"/>
+  <text x="210" y="366" text-anchor="middle" class="box-label">Excel Sources</text>
+  <text x="210" y="384" text-anchor="middle" class="small">Multiple Schedules</text>
+  <rect class="node" x="115" y="411" width="190" height="58"/>
+  <text x="210" y="444" text-anchor="middle" class="box-label">Airtable</text>
+  <text x="210" y="462" text-anchor="middle" class="small">Environmental Data</text>
+
+  <rect class="group" x="400" y="130" width="300" height="360" fill="#ffd4d4"/>
+  <text x="550" y="165" text-anchor="middle" class="group-label">🔄 INGESTION PIPELINES</text>
+  <rect class="node" x="455" y="185" width="190" height="44"/>
+  <text x="550" y="213" text-anchor="middle" class="note">Fabric Data Factory</text>
+  <rect class="node" x="425" y="345" width="110" height="58"/>
+  <text x="480" y="378" text-anchor="middle" class="box-label">SQL Pipeline</text>
+  <rect class="node" x="555" y="345" width="110" height="58"/>
+  <text x="610" y="378" text-anchor="middle" class="box-label">Excel Pipelines</text>
+  <rect class="node" x="455" y="420" width="190" height="58"/>
+  <text x="550" y="453" text-anchor="middle" class="box-label">Airtable Pipeline</text>
+
+  <rect class="group" x="760" y="130" width="540" height="220" fill="#f3e5f5"/>
+  <text x="1030" y="165" text-anchor="middle" class="group-label">💾 UNIFIED LAKEHOUSE</text>
+  <rect class="node" x="805" y="225" width="135" height="80"/>
+  <text x="872.5" y="258" text-anchor="middle" class="box-label">🔵 Bronze</text>
+  <text x="872.5" y="280" text-anchor="middle" class="small">Raw Data</text>
+  <rect class="node" x="963" y="225" width="135" height="80"/>
+  <text x="1030.5" y="258" text-anchor="middle" class="box-label">🟢 Silver</text>
+  <text x="1030.5" y="280" text-anchor="middle" class="small">Business Rules</text>
+  <rect class="node" x="1121" y="225" width="135" height="80"/>
+  <text x="1188.5" y="258" text-anchor="middle" class="box-label">🟡 Gold</text>
+  <text x="1188.5" y="280" text-anchor="middle" class="small">Optimized</text>
+
+  <rect class="group" x="1360" y="130" width="320" height="260" fill="#c8e6c9"/>
+  <text x="1520" y="165" text-anchor="middle" class="group-label">🎯 MASTER DATA LAYER</text>
+  <rect class="node" x="1415" y="195" width="210" height="44"/>
+  <text x="1520" y="223" text-anchor="middle" class="note">14 Shared Dimensions</text>
+  <rect class="node" x="1415" y="260" width="210" height="96"/>
+  <text x="1520" y="295" text-anchor="middle" class="box-label">Customer • Product • Location</text>
+  <text x="1520" y="318" text-anchor="middle" class="small">Date • Employee</text>
+  <text x="1520" y="341" text-anchor="middle" class="small">+ 9 Excel-based Dimensions</text>
+
+  <rect class="group" x="760" y="420" width="540" height="520" fill="#e8f5e9"/>
+  <text x="1030" y="455" text-anchor="middle" class="group-label">📊 SEMANTIC MODELS</text>
+  <rect class="node" x="900" y="480" width="260" height="44"/>
+  <text x="1030" y="508" text-anchor="middle" class="note">6 total, down from 21</text>
+  <rect class="node" x="840" y="550" width="380" height="48"/>
+  <text x="1030" y="580" text-anchor="middle" class="box-label">1. Sales &amp; Revenue</text>
+  <rect class="node" x="840" y="614" width="380" height="48"/>
+  <text x="1030" y="644" text-anchor="middle" class="box-label">2. Operations</text>
+  <rect class="node" x="840" y="678" width="380" height="48"/>
+  <text x="1030" y="708" text-anchor="middle" class="box-label">3. Finance</text>
+  <rect class="node" x="840" y="742" width="380" height="48"/>
+  <text x="1030" y="772" text-anchor="middle" class="box-label">4. Quality</text>
+  <rect class="node" x="840" y="806" width="380" height="48"/>
+  <text x="1030" y="836" text-anchor="middle" class="box-label">5. HR / Workforce</text>
+  <rect class="node" x="840" y="870" width="380" height="48"/>
+  <text x="1030" y="900" text-anchor="middle" class="box-label">6. Training</text>
+
+  <rect class="group" x="1360" y="470" width="380" height="260" fill="#fce4ec"/>
+  <text x="1550" y="505" text-anchor="middle" class="group-label">📈 POWER BI APPS</text>
+  <rect class="node" x="1435" y="540" width="230" height="44"/>
+  <text x="1550" y="568" text-anchor="middle" class="note">17 total with RLS</text>
+  <rect class="node" x="1415" y="605" width="270" height="90"/>
+  <text x="1550" y="635" text-anchor="middle" class="apps">PSG Sales • PSG Reports • Kroger QA</text>
+  <text x="1550" y="658" text-anchor="middle" class="apps">PSG Aquaculture • VCQ • HR KPIs</text>
+  <text x="1550" y="681" text-anchor="middle" class="apps">+ 11 more apps</text>
+
+  <rect class="group" x="1800" y="300" width="280" height="300" fill="#ede7f6"/>
+  <text x="1940" y="335" text-anchor="middle" class="group-label">🛡️ GOVERNANCE</text>
+  <rect class="node" x="1850" y="380" width="180" height="44"/>
+  <text x="1940" y="408" text-anchor="middle" class="note">Purview • Monitoring • RLS</text>
+  <rect class="node" x="1850" y="450" width="180" height="76"/>
+  <text x="1940" y="485" text-anchor="middle" class="box-label">Full Lineage</text>
+  <text x="1940" y="507" text-anchor="middle" class="small">and Metadata</text>
+
+  <line x1="210" y1="229" x2="210" y2="255" class="stroke" marker-end="url(#arrow)"/>
+  <line x1="210" y1="313" x2="210" y2="333" class="stroke" marker-end="url(#arrow)"/>
+  <line x1="210" y1="391" x2="210" y2="411" class="stroke" marker-end="url(#arrow)"/>
+
+  <line x1="550" y1="229" x2="550" y2="300" class="stroke"/>
+  <line x1="480" y1="300" x2="620" y2="300" class="stroke"/>
+  <line x1="480" y1="300" x2="480" y2="345" class="stroke" marker-end="url(#arrow)"/>
+  <line x1="610" y1="300" x2="610" y2="345" class="stroke" marker-end="url(#arrow)"/>
+  <line x1="550" y1="300" x2="550" y2="420" class="stroke" marker-end="url(#arrow)"/>
+
+  <line x1="305" y1="284" x2="425" y2="374" class="stroke" marker-end="url(#arrow)"/>
+  <line x1="305" y1="362" x2="555" y2="374" class="stroke" marker-end="url(#arrow)"/>
+  <line x1="305" y1="440" x2="455" y2="449" class="stroke" marker-end="url(#arrow)"/>
+
+  <line x1="535" y1="374" x2="805" y2="265" class="stroke" marker-end="url(#arrow)"/>
+  <line x1="665" y1="374" x2="805" y2="265" class="stroke" marker-end="url(#arrow)"/>
+  <line x1="645" y1="449" x2="805" y2="265" class="stroke" marker-end="url(#arrow)"/>
+
+  <line x1="940" y1="265" x2="963" y2="265" class="stroke" marker-end="url(#arrow)"/>
+  <line x1="1098" y1="265" x2="1121" y2="265" class="stroke" marker-end="url(#arrow)"/>
+  <line x1="1030" y1="305" x2="1520" y2="260" class="stroke" marker-end="url(#arrow)"/>
+
+  <line x1="1256" y1="265" x2="840" y2="574" class="stroke" marker-end="url(#arrow)"/>
+  <line x1="1256" y1="265" x2="840" y2="638" class="stroke" marker-end="url(#arrow)"/>
+  <line x1="1256" y1="265" x2="840" y2="702" class="stroke" marker-end="url(#arrow)"/>
+  <line x1="1256" y1="265" x2="840" y2="766" class="stroke" marker-end="url(#arrow)"/>
+  <line x1="1256" y1="265" x2="840" y2="830" class="stroke" marker-end="url(#arrow)"/>
+  <line x1="1256" y1="265" x2="840" y2="894" class="stroke" marker-end="url(#arrow)"/>
+
+  <line x1="1415" y1="308" x2="1220" y2="574" class="stroke" marker-end="url(#arrow)"/>
+  <line x1="1415" y1="308" x2="1220" y2="638" class="stroke" marker-end="url(#arrow)"/>
+  <line x1="1415" y1="308" x2="1220" y2="702" class="stroke" marker-end="url(#arrow)"/>
+  <line x1="1415" y1="308" x2="1220" y2="766" class="stroke" marker-end="url(#arrow)"/>
+  <line x1="1415" y1="308" x2="1220" y2="830" class="stroke" marker-end="url(#arrow)"/>
+  <line x1="1415" y1="308" x2="1220" y2="894" class="stroke" marker-end="url(#arrow)"/>
+
+  <line x1="1220" y1="574" x2="1415" y2="650" class="stroke" marker-end="url(#arrow)"/>
+  <line x1="1220" y1="638" x2="1415" y2="650" class="stroke" marker-end="url(#arrow)"/>
+  <line x1="1220" y1="702" x2="1415" y2="650" class="stroke" marker-end="url(#arrow)"/>
+  <line x1="1220" y1="766" x2="1415" y2="650" class="stroke" marker-end="url(#arrow)"/>
+  <line x1="1220" y1="830" x2="1415" y2="650" class="stroke" marker-end="url(#arrow)"/>
+  <line x1="1220" y1="894" x2="1415" y2="650" class="stroke" marker-end="url(#arrow)"/>
+
+  <line x1="872.5" y1="305" x2="1850" y2="488" class="stroke dash" marker-end="url(#arrow)"/>
+  <line x1="1030.5" y1="305" x2="1850" y2="488" class="stroke dash" marker-end="url(#arrow)"/>
+  <line x1="1188.5" y1="305" x2="1850" y2="488" class="stroke dash" marker-end="url(#arrow)"/>
+  <line x1="1685" y1="650" x2="1850" y2="488" class="stroke dash" marker-end="url(#arrow)"/>
+</svg>
